@@ -130,19 +130,26 @@ I love experimenting with **micro-interactions** that make digital products feel
 
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=dark)
 
-# 🎮 GitHub Contribution Animations
+# 🐍 Contribution Snake
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/akangumam/akangumam/output/snake.svg" alt="Snake eating my contributions" />
+</p>
+
+# 🎮 GitHub Game Zone
 
 <div align="center">
 
-### 🐍 Snake Game
-<img src="https://raw.githubusercontent.com/akangumam/akangumam/output/snake.svg" alt="Snake animation" />
+<!-- GitHub Snake Game -->
+<img src="https://github.com/akangumam/akangumam/blob/output/snake.svg" alt="Snake animation" />
 
-### 👾 Pacman Game  
-<img src="https://raw.githubusercontent.com/akangumam/akangumam/output/pacman.svg" alt="Pacman animation" />
+<!-- Retro Gaming Stats -->
+<img src="https://github-readme-stats.vercel.app/api?username=akangumam&show_icons=true&theme=synthwave&hide_border=true&bg_color=0D1117&title_color=F85D7F&icon_color=F8D866&text_color=F85D7F&count_private=true" alt="Retro Stats" />
 
-</div>
+<!-- Gaming Style Streak -->
+<img src="https://nirzak-streak-stats.vercel.app/?user=akangumam&theme=synthwave&hide_border=true&background=0D1117&stroke=F85D7F&ring=F8D866&fire=F85D7F&currStreakLabel=F85D7F" alt="Gaming Streak" />
 
-### 🔝 Top Contributed Repo
+</div>### 🔝 Top Contributed Repo
 
 ![](https://github-contributor-stats.vercel.app/api?username=akangumam&limit=5&theme=dark&combine_all_yearly_contributions=true)
 
