@@ -8,6 +8,13 @@
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=28&pause=1000&color=36BCF7&center=true&vCenter=true&width=600&lines=Hi+there!+I'm+Khaerul+Umam+%F0%9F%91%8B;UI%2FUX+Designer+%26+Developer;Building+Beautiful+Digital+Experiences;Flutter+%7C+React+%7C+Design+Systems" alt="Typing SVG" />
 </p>
 
+<!-- Profile Views Counter -->
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=akangumam&label=Profile%20views&color=0e75b6&style=flat" alt="akangumam" />
+  <img src="https://img.shields.io/github/followers/akangumam?label=Followers&style=social" alt="GitHub followers" />
+  <img src="https://img.shields.io/github/stars/akangumam?affiliations=OWNER%2CCOLLABORATOR&style=social" alt="GitHub User's stars" />
+</p>
+
 💫 **About Me**  
 Hi, I'm **Khaerul Umam** 👋  
 I'm a **UI Designer** who also works in the field of **Mobile & Web Development**.  
@@ -140,17 +147,8 @@ I love experimenting with **micro-interactions** that make digital products feel
 
 ---
 
-<!-- Footer -->
-<div align="center">
-  <p><i>✨ Made with ❤️ for the developer community</i></p>
-</div>
+---
 
-<!-- Animated Footer -->
-<p align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" alt="Footer Wave" />
-</p>
+[![](https://visitcount.itsvg.in/api?id=akangumam&icon=2&color=1)](https://visitcount.itsvg.in)
 
-<!-- Credits -->
-<p align="center">
-  <i>✨ Enhanced with profile-readme-generator.com elements ✨</i>
-</p>
+<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
