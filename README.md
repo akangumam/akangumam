@@ -10,7 +10,8 @@
 
 <!-- Profile Views Counter -->
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=akangumam&label=Profile%20views&color=0e75b6&style=flat" alt="Profile Views" />
+  <img src="https://komarev.com/ghpvc/?username=akangumam&label=Profile%20views&color=36BCF7&style=for-the-badge" alt="Profile Views" />
+  <img src="https://img.shields.io/github/followers/akangumam?label=Followers&style=for-the-badge&color=36BCF7" alt="GitHub followers" />
 </p>
 
 💫 **About Me**  
@@ -129,11 +130,17 @@ I love experimenting with **micro-interactions** that make digital products feel
 
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=dark)
 
-# 🐍 Contribution Snake
+# 🎮 GitHub Contribution Animations
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/akangumam/akangumam/output/snake.svg" alt="Snake animation" />
-</p>
+<div align="center">
+
+### 🐍 Snake Game
+<img src="https://raw.githubusercontent.com/akangumam/akangumam/output/snake.svg" alt="Snake animation" />
+
+### 👾 Pacman Game  
+<img src="https://raw.githubusercontent.com/akangumam/akangumam/output/pacman.svg" alt="Pacman animation" />
+
+</div>
 
 ### 🔝 Top Contributed Repo
 
