@@ -63,7 +63,7 @@
 
 ###
 
-<h3 align="left">�   Watch my contribution graph get eaten by a snake!</h3>
+<h3 align="left">🔥   Play games with me</h3>
 
 ###
 
