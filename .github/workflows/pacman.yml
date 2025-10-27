@@ -1,17 +1,12 @@
-name: Generate pacman animation
+name: Generate Pacman
 
 on:
-  # run automatically every 24 hours
   schedule:
-    - cron: "0 */24 * * *"
-  
-  # allows to manually run the job at any time
+    - cron: "0 */12 * * *"
   workflow_dispatch:
-  
-  # run on every push on the master branch
   push:
     branches:
-    - main
+      - main
 
 jobs:
   generate:
@@ -21,166 +16,15 @@ jobs:
     timeout-minutes: 10
     
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        
-      - name: create pacman animation
-        run: |
-          mkdir -p dist
+      - name: Generate Pacman SVG
+        uses: abozanona/pacman-contribution-graph@v1.0.0
+        with:
+          github_user_name: ${{ github.repository_owner }}
           
-          # Create animated pacman SVG
-          cat > dist/pacman-contribution-graph.svg << 'EOF'
-          <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <style>
-                .pacman {
-                  fill: #ffff00;
-                }
-                .dot {
-                  fill: #ff6b6b;
-                }
-                .ghost {
-                  fill: #00ffff;
-                }
-                .ghost-red {
-                  fill: #ff0000;
-                }
-                .ghost-pink {
-                  fill: #ffb3ff;
-                }
-                @keyframes movePacman {
-                  0% { transform: translateX(0px); }
-                  100% { transform: translateX(750px); }
-                }
-                @keyframes chomp {
-                  0%, 100% { transform: rotate(0deg); }
-                  50% { transform: rotate(45deg); }
-                }
-                @keyframes eatDot {
-                  0% { opacity: 1; transform: scale(1); }
-                  50% { opacity: 0.5; transform: scale(0.5); }
-                  100% { opacity: 0; transform: scale(0); }
-                }
-                .pacman-container {
-                  animation: movePacman 10s linear infinite;
-                }
-                .pacman-mouth {
-                  animation: chomp 0.2s ease-in-out infinite;
-                }
-                .dot1 { animation: eatDot 0.5s ease-in-out 1.5s forwards; }
-                .dot2 { animation: eatDot 0.5s ease-in-out 2.5s forwards; }
-                .dot3 { animation: eatDot 0.5s ease-in-out 3.5s forwards; }
-                .dot4 { animation: eatDot 0.5s ease-in-out 4.5s forwards; }
-                .dot5 { animation: eatDot 0.5s ease-in-out 5.5s forwards; }
-                .dot6 { animation: eatDot 0.5s ease-in-out 6.5s forwards; }
-              </style>
-            </defs>
-            
-            <!-- Background -->
-            <rect width="900" height="200" fill="#000814"/>
-            
-            <!-- Maze walls -->
-            <rect x="20" y="20" width="860" height="8" fill="#0066ff"/>
-            <rect x="20" y="172" width="860" height="8" fill="#0066ff"/>
-            <rect x="20" y="20" width="8" height="160" fill="#0066ff"/>
-            <rect x="872" y="20" width="8" height="160" fill="#0066ff"/>
-            
-            <!-- Internal maze structure -->
-            <rect x="100" y="60" width="8" height="80" fill="#0066ff"/>
-            <rect x="200" y="60" width="8" height="80" fill="#0066ff"/>
-            <rect x="300" y="60" width="8" height="80" fill="#0066ff"/>
-            <rect x="500" y="60" width="8" height="80" fill="#0066ff"/>
-            <rect x="600" y="60" width="8" height="80" fill="#0066ff"/>
-            <rect x="700" y="60" width="8" height="80" fill="#0066ff"/>
-            
-            <!-- Game path -->
-            <rect x="30" y="90" width="840" height="20" fill="#000814" stroke="#0066ff" stroke-width="1"/>
-            
-            <!-- Power pellets (big dots) -->
-            <circle cx="150" cy="100" r="8" class="dot dot1"/>
-            <circle cx="300" cy="100" r="8" class="dot dot2"/>
-            <circle cx="450" cy="100" r="8" class="dot dot3"/>
-            <circle cx="600" cy="100" r="8" class="dot dot4"/>
-            <circle cx="750" cy="100" r="8" class="dot dot5"/>
-            
-            <!-- Small dots -->
-            <circle cx="80" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="120" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="180" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="220" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="260" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="340" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="380" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="420" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="480" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="520" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="560" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="640" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="680" cy="100" r="2" fill="#ffd60a"/>
-            <circle cx="720" cy="100" r="2" fill="#ffd60a"/>
-            
-            <!-- Pacman -->
-            <g class="pacman-container">
-              <g class="pacman-mouth">
-                <!-- Pacman body -->
-                <circle cx="50" cy="100" r="18" class="pacman"/>
-                <!-- Pacman mouth -->
-                <path d="M 50 100 L 68 88 A 18 18 0 0 1 68 112 Z" fill="#000814"/>
-                <!-- Pacman eye -->
-                <circle cx="46" cy="88" r="2" fill="#000814"/>
-              </g>
-            </g>
-            
-            <!-- Ghosts -->
-            <g transform="translate(800, 75)">
-              <!-- Blinky (Red) -->
-              <g class="ghost-red">
-                <rect width="20" height="25" rx="10" ry="10" fill="#ff0000"/>
-                <rect width="20" height="12" y="13" fill="#ff0000"/>
-                <polygon points="0,25 4,30 8,25 12,30 16,25 20,30 20,25 0,25" fill="#ff0000"/>
-                <circle cx="6" cy="8" r="2" fill="#ffffff"/>
-                <circle cx="14" cy="8" r="2" fill="#ffffff"/>
-                <circle cx="5" cy="8" r="1" fill="#000000"/>
-                <circle cx="13" cy="8" r="1" fill="#000000"/>
-              </g>
-            </g>
-            
-            <g transform="translate(830, 75)">
-              <!-- Pinky (Pink) -->
-              <g class="ghost-pink">
-                <rect width="20" height="25" rx="10" ry="10" fill="#ffb3ff"/>
-                <rect width="20" height="12" y="13" fill="#ffb3ff"/>
-                <polygon points="0,25 4,30 8,25 12,30 16,25 20,30 20,25 0,25" fill="#ffb3ff"/>
-                <circle cx="6" cy="8" r="2" fill="#ffffff"/>
-                <circle cx="14" cy="8" r="2" fill="#ffffff"/>
-                <circle cx="5" cy="8" r="1" fill="#000000"/>
-                <circle cx="13" cy="8" r="1" fill="#000000"/>
-              </g>
-            </g>
-            
-            <!-- Game title -->
-            <text x="400" y="45" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ffd60a" text-anchor="middle">
-              🎮 PAC-MAN GitHub Edition
-            </text>
-            
-            <!-- Score -->
-            <text x="50" y="170" font-family="Arial, sans-serif" font-size="10" fill="#ffd60a">
-              SCORE: GitHub Contributions
-            </text>
-            <text x="700" y="170" font-family="Arial, sans-serif" font-size="10" fill="#ffd60a">
-              READY!
-            </text>
-          </svg>
-          EOF
-          
-          # Create dark version with different background
-          sed 's/#000814/#0d1117/g; s/#0066ff/#238636/g; s/#ffd60a/#f0d000/g' dist/pacman-contribution-graph.svg > dist/pacman-contribution-graph-dark.svg
-          
-      - name: Deploy to output branch
-        uses: crazy-max/ghaction-github-pages@v3.1.0
+      - name: Push pacman.svg to output branch
+        uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: output
           build_dir: dist
-          keep_history: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
