@@ -17,12 +17,10 @@ jobs:
 
     steps:
       - name: Generate Pacman animation
-        uses: Yoshi-0921/pacman-contribution-graph@v1.0.0
+        uses: abozanona/pacman@v2.0.0
         with:
           github_user_name: akangumam
-          outputs: |
-            dist/pacman-contribution-graph.svg
-            dist/pacman-contribution-graph-dark.svg
+          svg_out_path: dist/pacman-contribution-graph.svg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
