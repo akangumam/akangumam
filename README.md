@@ -4,7 +4,7 @@
 
 ###
 
-<h1 align="center">Hi World, I'm **Khaerul Umam** 👋</h1>
+<h1 align="center">Hi World, I'm Khaerul Umam 👋</h1>
 
 ###
 
@@ -27,7 +27,7 @@
 
 ###
 
-<p align="left">I'm a **UI Designer** who also works in the field of **Mobile & Web Development**.<br><br>- 🔭 I'm working as Mobile app design & development projects for **government and private sectors**.<br>- 📚 I'm currently learning **Advanced Flutter architecture** and state management.<br>- ⚡ In my free time I I love experimenting with **micro-interactions** that make digital products feel more human and delightful ✨</p>
+<p align="left">I'm a <strong>UI Designer</strong> who also works in the field of <strong>Mobile & Web Development</strong>.<br><br>- 🔭 I'm working as Mobile app design & development projects for <strong>government and private sectors</strong>.<br>- 📚 I'm currently learning <strong>Advanced Flutter architecture</strong> and state management.<br>- ⚡ In my free time I love experimenting with <strong>micro-interactions</strong> that make digital products feel more human and delightful ✨</p>
 
 ###
 
@@ -63,7 +63,7 @@
 
 ###
 
-<h3 align="left">🔥   Play games with me</h3>
+<h3 align="left">�   Watch my contribution graph get eaten by a snake!</h3>
 
 ###
 
@@ -75,6 +75,6 @@
 
 ###
 
-<img src="https://raw.githubusercontent.com/akangumam/akangumam/output/snake.svg" alt="Snake animation" />
+<img src="https://raw.githubusercontent.com/akangumam/akangumam/output/github-contribution-grid-snake.svg" alt="Snake animation" />
 
 ###
