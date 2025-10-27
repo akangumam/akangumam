@@ -22,14 +22,24 @@ jobs:
     
     steps:
       # generates a snake game from a github user contributions graph
-      - name: generate github-contribution-grid-snake.svg
+      - name: generate snake animation
         uses: Platane/snk/svg-only@v3
         with:
           github_user_name: akangumam
           outputs: |
-            dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
-            dist/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
+            dist/github-contribution-grid-snake.svg?color_snake=#00ff00&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark&color_snake=#00ff00
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      # generate pacman style animation with different colors
+      - name: generate pacman animation  
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: akangumam
+          outputs: |
+            dist/pacman-contribution-graph.svg?color_snake=#ffff00&color_dots=#ff6b6b,#ff8e53,#ff006e,#8338ec,#3a86ff&background_color=#000000
+            dist/pacman-contribution-graph-dark.svg?palette=github-dark&color_snake=#ffff00&color_dots=#ff6b6b,#ff8e53,#ff006e,#8338ec,#3a86ff
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
