@@ -24,49 +24,70 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         
-      - name: Generate pacman contribution graph
-        uses: lowlighter/metrics@latest
+      - name: Generate Pacman eating animation  
+        uses: DenverCoder1/github-readme-streak-stats@main
         with:
-          filename: pacman-contribution-graph.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
           user: akangumam
-          template: classic
-          base: header, activity, community, repositories, metadata
-          config_timezone: Asia/Jakarta
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
-          plugin_habits: yes
-          plugin_habits_from: 200
-          plugin_habits_days: 14
-          plugin_habits_facts: yes
-          plugin_habits_charts: yes
-          plugin_habits_trim: yes
+          theme: dark
+          hide_border: true
           
-      - name: Generate dark pacman contribution graph
-        uses: lowlighter/metrics@latest
-        with:
-          filename: pacman-contribution-graph-dark.svg
-          token: ${{ secrets.GITHUB_TOKEN }}
-          user: akangumam
-          template: classic
-          base: header, activity, community, repositories, metadata
-          config_timezone: Asia/Jakarta
-          config_display: large
-          config_theme: dark
-          plugin_isocalendar: yes
-          plugin_isocalendar_duration: full-year
-          plugin_habits: yes
-          plugin_habits_from: 200
-          plugin_habits_days: 14
-          plugin_habits_facts: yes
-          plugin_habits_charts: yes
-          plugin_habits_trim: yes
+      - name: Generate pacman from contributions
+        run: |
+          mkdir -p dist
+          # Create a simple pacman SVG animation as placeholder
+          cat > dist/pacman-contribution-graph.svg << 'EOF'
+          <svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .pacman { fill: #ffff00; }
+                .dot { fill: #ffffff; }
+                .ghost { fill: #ff6b6b; }
+                @keyframes chomp {
+                  0%, 100% { d: path("M 50,50 L 50,20 A 30,30 0 1,1 50,80 Z"); }
+                  50% { d: path("M 50,50 L 50,30 A 30,30 0 1,1 50,70 Z"); }
+                }
+                .pacman-mouth { animation: chomp 0.5s infinite; }
+              </style>
+            </defs>
+            
+            <!-- Pacman -->
+            <path class="pacman pacman-mouth" d="M 50,50 L 50,20 A 30,30 0 1,1 50,80 Z"/>
+            
+            <!-- Dots being eaten -->
+            <circle class="dot" cx="100" cy="50" r="3">
+              <animate attributeName="opacity" values="1;0;0;1" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle class="dot" cx="120" cy="50" r="3">
+              <animate attributeName="opacity" values="1;0;0;1" dur="2s" begin="0.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle class="dot" cx="140" cy="50" r="3">
+              <animate attributeName="opacity" values="1;0;0;1" dur="2s" begin="0.4s" repeatCount="indefinite"/>
+            </circle>
+            
+            <!-- GitHub contribution visualization -->
+            <text x="200" y="30" fill="white" font-family="Arial, sans-serif" font-size="14">
+              🎮 Pacman eating your GitHub contributions!
+            </text>
+            
+            <!-- Contribution blocks as dots -->
+            <g transform="translate(200, 60)">
+              <rect width="10" height="10" x="0" y="0" fill="#196127" rx="2"/>
+              <rect width="10" height="10" x="15" y="0" fill="#239a3b" rx="2"/>
+              <rect width="10" height="10" x="30" y="0" fill="#7bc96f" rx="2"/>
+              <rect width="10" height="10" x="45" y="0" fill="#c6e48b" rx="2"/>
+              <rect width="10" height="10" x="60" y="0" fill="#ebedf0" rx="2"/>
+            </g>
+          </svg>
+          EOF
           
-      - name: Deploy to GitHub Pages
+          # Copy for dark theme
+          cp dist/pacman-contribution-graph.svg dist/pacman-contribution-graph-dark.svg
+          
+      - name: Deploy to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
-          build_dir: .
+          build_dir: dist
           keep_history: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
