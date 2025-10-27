@@ -32,16 +32,110 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      # generate pacman style animation with different colors
-      - name: generate pacman animation  
-        uses: Platane/snk/svg-only@v3
-        with:
-          github_user_name: akangumam
-          outputs: |
-            dist/pacman-contribution-graph.svg?color_snake=#ffff00&color_dots=#ff6b6b,#ff8e53,#ff006e,#8338ec,#3a86ff&background_color=#000000
-            dist/pacman-contribution-graph-dark.svg?palette=github-dark&color_snake=#ffff00&color_dots=#ff6b6b,#ff8e53,#ff006e,#8338ec,#3a86ff
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # create custom pacman animation with real pacman character
+      - name: create pacman animation
+        run: |
+          mkdir -p dist
+          
+          # Create animated pacman SVG
+          cat > dist/pacman-contribution-graph.svg << 'EOF'
+          <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <style>
+                .pacman {
+                  fill: #ffff00;
+                  transform-origin: center;
+                }
+                .dot {
+                  fill: #ff6b6b;
+                }
+                .ghost {
+                  fill: #00ffff;
+                }
+                @keyframes movePacman {
+                  0% { transform: translateX(0px); }
+                  100% { transform: translateX(750px); }
+                }
+                @keyframes chomp {
+                  0%, 100% { transform: rotate(0deg); }
+                  50% { transform: rotate(45deg); }
+                }
+                @keyframes eatDot {
+                  0% { opacity: 1; transform: scale(1); }
+                  50% { opacity: 0.5; transform: scale(0.5); }
+                  100% { opacity: 0; transform: scale(0); }
+                }
+                .pacman-container {
+                  animation: movePacman 8s linear infinite;
+                }
+                .pacman-mouth {
+                  animation: chomp 0.3s ease-in-out infinite;
+                }
+                .dot1 { animation: eatDot 0.5s ease-in-out 1s forwards; }
+                .dot2 { animation: eatDot 0.5s ease-in-out 2s forwards; }
+                .dot3 { animation: eatDot 0.5s ease-in-out 3s forwards; }
+                .dot4 { animation: eatDot 0.5s ease-in-out 4s forwards; }
+                .dot5 { animation: eatDot 0.5s ease-in-out 5s forwards; }
+              </style>
+            </defs>
+            
+            <!-- Background -->
+            <rect width="900" height="200" fill="#000814"/>
+            
+            <!-- Game arena -->
+            <rect x="20" y="80" width="860" height="40" fill="#001d3d" stroke="#ffd60a" stroke-width="2" rx="20"/>
+            
+            <!-- Dots (power pellets) -->
+            <circle cx="150" cy="100" r="8" class="dot dot1"/>
+            <circle cx="250" cy="100" r="8" class="dot dot2"/>
+            <circle cx="350" cy="100" r="8" class="dot dot3"/>
+            <circle cx="450" cy="100" r="8" class="dot dot4"/>
+            <circle cx="550" cy="100" r="8" class="dot dot5"/>
+            
+            <!-- Small dots -->
+            <circle cx="100" cy="100" r="3" fill="#ffd60a"/>
+            <circle cx="200" cy="100" r="3" fill="#ffd60a"/>
+            <circle cx="300" cy="100" r="3" fill="#ffd60a"/>
+            <circle cx="400" cy="100" r="3" fill="#ffd60a"/>
+            <circle cx="500" cy="100" r="3" fill="#ffd60a"/>
+            <circle cx="600" cy="100" r="3" fill="#ffd60a"/>
+            <circle cx="700" cy="100" r="3" fill="#ffd60a"/>
+            
+            <!-- Pacman -->
+            <g class="pacman-container">
+              <g class="pacman-mouth">
+                <!-- Pacman body -->
+                <circle cx="50" cy="100" r="20" class="pacman"/>
+                <!-- Pacman mouth -->
+                <path d="M 50 100 L 70 90 A 20 20 0 0 1 70 110 Z" fill="#000814"/>
+                <!-- Pacman eye -->
+                <circle cx="45" cy="90" r="3" fill="#000814"/>
+              </g>
+            </g>
+            
+            <!-- Ghost -->
+            <g transform="translate(750, 75)">
+              <rect width="25" height="30" rx="12" ry="12" fill="#00ffff"/>
+              <rect width="25" height="15" y="15" fill="#00ffff"/>
+              <polygon points="0,30 5,35 10,30 15,35 20,30 25,35 25,30 0,30" fill="#00ffff"/>
+              <circle cx="7" cy="10" r="3" fill="#000814"/>
+              <circle cx="18" cy="10" r="3" fill="#000814"/>
+              <circle cx="6" cy="10" r="1" fill="#ffffff"/>
+              <circle cx="17" cy="10" r="1" fill="#ffffff"/>
+            </g>
+            
+            <!-- Score text -->
+            <text x="20" y="30" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffd60a">
+              🎮 PACMAN EATING CONTRIBUTIONS
+            </text>
+            <text x="20" y="180" font-family="Arial, sans-serif" font-size="12" fill="#ffd60a">
+              GitHub: akangumam | Score: ∞ commits
+            </text>
+          </svg>
+          EOF
+          
+          # Create dark version
+          sed 's/#000814/#1a1a1a/g; s/#001d3d/#2d2d2d/g' dist/pacman-contribution-graph.svg > dist/pacman-contribution-graph-dark.svg
           
       # push the content of <build_dir> to a branch
       - name: push github-contribution-grid-snake.svg to the output branch
