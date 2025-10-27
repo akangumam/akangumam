@@ -21,21 +21,53 @@ jobs:
     timeout-minutes: 10
     
     steps:
-      - name: generate pacman-contribution-graph.svg
-        uses: Yuki-Kurita/contributions-graph-as-game@main
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Generate pacman contribution graph
+        uses: lowlighter/metrics@latest
         with:
-          username: akangumam
-          game: pacman
-          output: |
-            dist/pacman-contribution-graph.svg
-            dist/pacman-contribution-graph-dark.svg?palette=github-dark
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          filename: pacman-contribution-graph.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+          user: akangumam
+          template: classic
+          base: ""
+          config_timezone: Asia/Jakarta
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+          plugin_pagespeed: yes
+          plugin_pagespeed_detailed: no
+          plugin_pagespeed_screenshot: no
+          plugin_pagespeed_pwa: no
+          plugin_achievements: yes
+          plugin_achievements_display: detailed
+          plugin_achievements_secrets: yes
+          plugin_achievements_threshold: C
           
-      - name: push pacman-contribution-graph.svg to the output branch
+      - name: Generate dark theme pacman contribution graph
+        uses: lowlighter/metrics@latest
+        with:
+          filename: pacman-contribution-graph-dark.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+          user: akangumam
+          template: classic
+          base: ""
+          config_timezone: Asia/Jakarta
+          config_display: large
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+          plugin_achievements: yes
+          plugin_achievements_display: detailed
+          plugin_achievements_secrets: yes
+          plugin_achievements_threshold: C
+          extras_css: |
+            * { color-scheme: dark !important }
+          
+      - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
-          build_dir: dist
+          build_dir: .
+          keep_history: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
