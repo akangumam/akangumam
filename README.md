@@ -20,6 +20,16 @@
 
 ![](https://github-profile-trophy.vercel.app/?username=akangumam&theme=radical&no-frame=false&no-bg=true&margin-w=4)
 
+# 🔥 Play games with me
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/akangumam/akangumam/output/pacman-contribution-graph-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/akangumam/akangumam/output/pacman-contribution-graph.svg">
+  <img alt="pacman contribution graph" src="https://raw.githubusercontent.com/akangumam/akangumam/output/pacman-contribution-graph.svg">
+</picture>
+
+<img src="https://raw.githubusercontent.com/akangumam/akangumam/output/snake.svg" alt="Snake animation" />
+
 ### ✍️ Random Dev Quote
 
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
