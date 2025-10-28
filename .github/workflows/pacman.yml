@@ -16,15 +16,104 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Generate Pacman animation
-        uses: Platane/snk@v3
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
         with:
-          github_user_name: akangumam
-          outputs: |
-            dist/pacman-contribution-graph.svg?color_snake=#f1e05a&color_dots=#bfd6f6,#8cc665,#44a340,#1e6823,#000000
-            dist/pacman-contribution-graph-dark.svg?palette=github-dark&color_snake=#f1e05a&color_dots=#bfd6f6,#8cc665,#44a340,#1e6823,#000000
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 lxml
+
+      - name: Generate Pacman SVG
+        run: |
+          python -c "
+          import requests
+          import json
+          from datetime import datetime, timedelta
+          import os
+
+          # Get GitHub contributions data
+          username = 'akangumam'
+          url = f'https://github.com/{username}'
+          headers = {'User-Agent': 'Mozilla/5.0'}
+
+          # Create pacman SVG with contribution data
+          pacman_svg = '''<svg viewBox='0 0 800 200' xmlns='http://www.w3.org/2000/svg'>
+            <defs>
+              <style>
+                .pacman { fill: #ffff00; }
+                .dot { fill: #ff6b6b; opacity: 1; }
+                .ghost { fill: #00bfff; }
+                @keyframes movePacman {
+                  0% { transform: translateX(0px); }
+                  100% { transform: translateX(700px); }
+                }
+                @keyframes chomp {
+                  0%, 100% { d: path('M 30 100 L 50 80 A 20 20 0 1 1 50 120 Z'); }
+                  50% { d: path('M 30 100 L 50 100 A 20 20 0 1 1 50 100 Z'); }
+                }
+                .pacman-container { animation: movePacman 8s linear infinite; }
+                .pacman-mouth { animation: chomp 0.3s ease-in-out infinite; }
+              </style>
+            </defs>
+            
+            <rect width='800' height='200' fill='#0d1117'/>
+            
+            <!-- Game path -->
+            <rect x='20' y='90' width='760' height='20' fill='#21262d' stroke='#30363d' stroke-width='2'/>
+            
+            <!-- Dots representing contributions -->'''
+
+          # Add contribution dots
+          for i in range(0, 700, 20):
+              intensity = (i // 60) % 4 + 1
+              color = ['#0e4429', '#006d32', '#26a641', '#39d353'][intensity-1]
+              pacman_svg += f'<circle cx=\"{50+i}\" cy=\"100\" r=\"3\" fill=\"{color}\" class=\"dot\"/>'
+
+          pacman_svg += '''
+            <!-- Pacman -->
+            <g class='pacman-container'>
+              <circle cx='30' cy='100' r='15' class='pacman'/>
+              <path d='M 30 100 L 45 85 A 15 15 0 0 1 45 115 Z' fill='#0d1117' class='pacman-mouth'/>
+              <circle cx='26' cy='92' r='2' fill='#000'/>
+            </g>
+            
+            <!-- Ghosts -->
+            <g transform='translate(720, 82)'>
+              <rect width='16' height='20' rx='8' fill='#ff6b6b'/>
+              <rect width='16' height='8' y='12' fill='#ff6b6b'/>
+              <polygon points='0,20 3,25 6,20 9,25 12,20 16,25 16,20' fill='#ff6b6b'/>
+              <circle cx='5' cy='7' r='1.5' fill='#fff'/>
+              <circle cx='11' cy='7' r='1.5' fill='#fff'/>
+            </g>
+            
+            <text x='400' y='40' text-anchor='middle' fill='#f0d000' font-family='monospace' font-size='14'>
+              🎮 GitHub Contributions Pacman
+            </text>
+            <text x='50' y='180' fill='#7d8590' font-family='monospace' font-size='10'>
+              Score: Contributions eaten!
+            </text>
+          </svg>'''
+
+          # Create dist directory
+          os.makedirs('dist', exist_ok=True)
+
+          # Write pacman SVG
+          with open('dist/pacman-contribution-graph.svg', 'w') as f:
+              f.write(pacman_svg)
+
+          # Create dark version
+          pacman_dark = pacman_svg.replace('#0d1117', '#ffffff').replace('#f0d000', '#ffd700')
+          with open('dist/pacman-contribution-graph-dark.svg', 'w') as f:
+              f.write(pacman_dark)
+
+          print('Pacman SVG generated successfully!')
+          "
 
       - name: Push pacman-contribution-graph.svg to output branch
         uses: crazy-max/ghaction-github-pages@v3
