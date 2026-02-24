@@ -1,5 +1,4 @@
 name: Generate Pacman Animation
-
 on:
   schedule:
     - cron: "0 */12 * * *"
@@ -7,44 +6,22 @@ on:
   push:
     branches:
       - main
-
 jobs:
   generate:
     permissions:
       contents: write
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      # 1. Generate versi TERANG (Default)
       - name: generate pacman-contribution-graph.svg
         uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: akangumam
-          theme: github-light
-
-      # 2. Generate versi GELAP (Dark)
-      - name: generate pacman-contribution-graph-dark.svg
-        uses: abozanona/pacman-contribution-graph@main
-        with:
-          github_user_name: akangumam
-          theme: github-dark
-
-      # Proses memindahkan file agar namanya sesuai dengan yang dicari README
-      - name: Rename Dark File
-        run: |
-          mkdir -p dist
-          cp dist/pacman-contribution-graph.svg dist/pacman-contribution-graph-dark.svg
-          # Step ini memastikan kita punya dua file berbeda di folder dist
-
-      - name: push pacman-contribution-graph.svg to the output branch
+      - name: push to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
           build_dir: dist
-          keep_history: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
