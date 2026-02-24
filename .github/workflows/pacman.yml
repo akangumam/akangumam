@@ -1,9 +1,13 @@
-name: Generate Pacman
+name: Generate Pacman Animation
 
 on:
   schedule:
+    # Berjalan setiap 12 jam (pada menit ke-0)
     - cron: "0 */12 * * *"
+  
+  # Memungkinkan kita menjalankan manual dari tab Actions
   workflow_dispatch:
+
   push:
     branches:
       - main
@@ -16,22 +20,22 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      # STEP 1: Sangat penting untuk 'checkout' agar sistem punya akses ke repo
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Generate Pacman contribution graph
-        uses: abozanona/pacman@v1
+      # STEP 2: Ini adalah "mesin" yang menghasilkan gambar maze/labirin
+      - name: Generate pacman-contribution-graph.svg
+        uses: abozanona/pacman-contribution-graph@main
         with:
-          github_user_name: akangumam
-          svg_out_path: dist/pacman-contribution-graph.svg
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_user_name: ${{ github.repository_owner }}
 
+      # STEP 3: Push hasilnya ke branch 'output'
       - name: Push pacman-contribution-graph.svg to output branch
         uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: output
-          build_dir: dist
+          build_dir: dist  # Mesin di atas otomatis simpan file di folder 'dist'
           keep_history: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
