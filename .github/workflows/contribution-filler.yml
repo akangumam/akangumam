@@ -1,7 +1,7 @@
-name: Super Contribution Filler
+name: Ultimate Contribution Filler
 
 on:
-  workflow_dispatch: # Klik tombol "Run workflow" di tab Actions
+  workflow_dispatch:
 
 jobs:
   fill:
@@ -15,18 +15,15 @@ jobs:
           git config --global user.name "akangumam"
           git config --global user.email "akangumam@users.noreply.github.com"
 
-      - name: Fill 90 Days of Contributions
+      - name: Fill Random Contributions (1 Year)
         run: |
-          # Loop untuk 90 hari ke belakang
-          for i in {90..0}
+          # Melakukan 300 commit pada tanggal acak dalam 365 hari terakhir
+          for i in {1..300}
           do
-            # Membuat 3-7 commit acak setiap harinya agar terlihat padat
-            NUM_COMMITS=$(( ( RANDOM % 5 )  + 3 ))
-            for j in $(seq 1 $NUM_COMMITS)
-            do
-              D=$(date -d "$i days ago" +%Y-%m-%dT%H:%M:%S)
-              GIT_AUTHOR_DATE="$D" GIT_COMMITTER_DATE="$D" git commit --allow-empty -m "Aesthetic commit" --date "$D"
-            done
+            # Pilih hari acak antara 0 sampai 365
+            RAND_DAY=$(( RANDOM % 365 ))
+            D=$(date -d "$RAND_DAY days ago" +%Y-%m-%dT%H:%M:%S)
+            GIT_AUTHOR_DATE="$D" GIT_COMMITTER_DATE="$D" git commit --allow-empty -m "Aesthetic random commit" --date "$D"
           done
 
       - name: Push Changes
