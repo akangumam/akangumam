@@ -1,7 +1,7 @@
-name: Contribution Filler (Aesthetic Only)
+name: Super Contribution Filler
 
 on:
-  workflow_dispatch: # Supaya bisa dijalankan manual dengan klik tombol
+  workflow_dispatch: # Klik tombol "Run workflow" di tab Actions
 
 jobs:
   fill:
@@ -15,12 +15,18 @@ jobs:
           git config --global user.name "akangumam"
           git config --global user.email "akangumam@users.noreply.github.com"
 
-      - name: Create 50 Empty Commits
+      - name: Fill 90 Days of Contributions
         run: |
-          # Perulangan untuk membuat 50 commit kosong dalam satu kali jalan
-          for i in {1..50}
+          # Loop untuk 90 hari ke belakang
+          for i in {90..0}
           do
-            git commit --allow-empty -m "aesthetic: filling contribution grid $i"
+            # Membuat 3-7 commit acak setiap harinya agar terlihat padat
+            NUM_COMMITS=$(( ( RANDOM % 5 )  + 3 ))
+            for j in $(seq 1 $NUM_COMMITS)
+            do
+              D=$(date -d "$i days ago" +%Y-%m-%dT%H:%M:%S)
+              GIT_AUTHOR_DATE="$D" GIT_COMMITTER_DATE="$D" git commit --allow-empty -m "Aesthetic commit" --date "$D"
+            done
           done
 
       - name: Push Changes
