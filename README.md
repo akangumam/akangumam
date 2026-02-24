@@ -23,7 +23,7 @@
 
 ###
 
-<h3 align="left">👩‍💻  About Me</h3>
+<h3 align="left">👩💻  About Me</h3>
 
 ###
 
@@ -63,18 +63,20 @@
 
 ###
 
-<h3 align="left">🔥   Play games with me</h3>
+<h3 align="left">👾   Play games with me</h3>
 
 ###
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/akangumam/akangumam/output/pacman-contribution-graph-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/akangumam/akangumam/output/pacman-contribution-graph.svg">
-  <img alt="pacman contribution graph" src="https://raw.githubusercontent.com/akangumam/akangumam/output/pacman-contribution-graph.svg">
-</picture>
+<div align="center">
+  <!-- PACMAN ANIMATION -->
+  <img src="https://raw.githubusercontent.com/akangumam/akangumam/output/pacman-contribution-graph.svg" alt="Pacman Animation" width="100%" />
+</div>
 
-###
+<br/>
 
-<img src="https://raw.githubusercontent.com/akangumam/akangumam/output/snake.svg" alt="Snake animation" />
+<div align="center">
+  <!-- SNAKE ANIMATION (FULL DARK MODE & UNGU) -->
+  <img src="https://raw.githubusercontent.com/akangumam/akangumam/output/github-snake-dark.svg" alt="Snake Animation" width="100%" />
+</div>
 
 ###
