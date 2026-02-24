@@ -1,0 +1,28 @@
+name: Contribution Filler (Aesthetic Only)
+
+on:
+  workflow_dispatch: # Supaya bisa dijalankan manual dengan klik tombol
+
+jobs:
+  fill:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Git Config
+        run: |
+          git config --global user.name "akangumam"
+          git config --global user.email "akangumam@users.noreply.github.com"
+
+      - name: Create 50 Empty Commits
+        run: |
+          # Perulangan untuk membuat 50 commit kosong dalam satu kali jalan
+          for i in {1..50}
+          do
+            git commit --allow-empty -m "aesthetic: filling contribution grid $i"
+          done
+
+      - name: Push Changes
+        run: |
+          git push origin main
